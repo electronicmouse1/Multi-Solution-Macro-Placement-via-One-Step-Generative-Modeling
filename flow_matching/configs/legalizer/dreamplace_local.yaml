@@ -1,0 +1,17 @@
+# Optional endpoint only; physical metadata must match the current graph.
+legalization:
+  mode: dreamplace_local
+  metadata: null
+  scratch_root: ./work/runs/legalization
+  dreamplace_root: ./work/tools/dreamplace-4.1.0-torch221-cpu
+  dreamplace_python: python
+  timeout_seconds: 120
+  num_bins: 8
+  local_neighbors: 2
+  local_max_expansions: 2
+  local_max_fraction: 0.75
+  tolerance_dbu: 1.0
+  grid_tolerance_dbu: 1.0
+  size_tolerance_dbu: 1.0
+  # C freezes inactive macros exactly; full site/row alignment is separate.
+  require_full_grid: false

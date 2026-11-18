@@ -1,0 +1,16 @@
+# Optional full physical-grid endpoint; legacy defaults are unchanged.
+legalization:
+  mode: B_grid
+  metadata: null
+  scratch_root: ./work/runs/grid-legalization
+  dreamplace_root: ./work/tools/dreamplace-4.1.0-torch221-cpu
+  dreamplace_python: python
+  timeout_seconds: 120
+  num_bins: 8
+  max_repair_moves: null
+  allow_envelope_fallback: true
+  hard_grid_res: 128
+  hard_padding: 0.001
+  tolerance_dbu: 1.0
+  grid_tolerance_dbu: 1.0
+  size_tolerance_dbu: 1.0

@@ -1,0 +1,133 @@
+family: imf
+task: mask.61
+test_task: mask.61
+num_classes: 10
+method: imf_graph_path_batch_ablation
+seed: 61
+log_dir: none
+mode: train
+from_checkpoint: none
+resume: none
+init_from: none
+param_sweep: false
+logger:
+  filter: .*
+  wandb: false
+  wandb_entity: <your_wandb_entity>
+  wandb_project: flow-matching-placement
+implementation: custom
+model:
+  mask_key: is_ports
+  use_mask_as_input: true
+  max_diffusion_steps: 50
+  noise_schedule: linear
+  t_encoding_type: sinusoid
+  t_encoding_dim: 32
+  beta_1: 0.0001
+  beta_T: 0.02
+  self_cond_mode: model_output
+  discrete_prediction: x0
+  input_cont_dim: 2
+  input_disc_dim: 3
+  physics_prior_lr: 0.5
+  prior_noise_dist: uniform
+  use_hard_constraint_in_sampling: false
+  hard_constraint_w_reg: 0.0
+  hard_constraint_w_dist: 1.0
+  backbone: att_gnn
+  backbone_params:
+    edge_features: 4
+    cond_node_features: 2
+    hidden_size: 256
+    hidden_node_features:
+    - 256
+    - 256
+    - 256
+    attention_node_features:
+    - 256
+    - 256
+    - 256
+    layers_per_block: 2
+    input_encoding_dim: 32
+    dropout: 0.0
+    num_heads: 4
+    mlp_num_layers: 2
+    mlp_size_factor: 4
+    ff_num_layers: 2
+    ff_size_factor: 1
+    att_implementation: flash
+    dir_att_input: true
+    conv_params:
+      layer_type: gat
+      heads: 4
+      concat: true
+  guidance_mode: none
+  legality_guidance_weight: 0.0
+  hpwl_guidance_weight: 0.0
+  guidance_step: 0
+  forward_guidance_weight: 0.0
+  grad_descent_steps: 0
+  imf_sampling_steps: 1
+  num_classes: 10
+  input_shape:
+  - 107
+  - 2
+  device: cuda
+cluster:
+  is_cluster: false
+  num_clusters: 512
+  verbose: false
+  cached_clusters: false
+legalization:
+  mode: none
+  softmax_min: 5.0
+  softmax_max: 50.0
+batch_size: 4
+val_batch_size: 1
+train_steps: 5000
+print_every: 100
+eval_every: 0
+eval_samples: 0
+test_every: 0
+eval_policy: open_loop
+test_policy_algorithm: open_loop
+test_policy:
+  num_iterations: 5
+  num_clusters: 512
+  sc_placement_algorithm: none
+  verbose: false
+  save_plots: false
+  save_videos: false
+display_examples: 1
+num_output_samples: 0
+test_num_output_samples: 0
+lr: 0.0003
+augment: false
+train_data_limit: none
+val_data_limit: none
+sc_halo: 1.0
+macros_only: false
+cached_macros: false
+edge_dropout: 0
+scatter_plots:
+- - lambda_2
+  - legality_2
+- - lambda_2
+  - hpwl_ratio
+- - hpwl_ratio
+  - legality_2
+- - original_hpwl_normalized
+  - hpwl_normalized
+show_intermediate_every: 200
+sc_eval_policy:
+  sc_placement_algorithm: sgd
+  sc_placement_params:
+    lr: 0.02
+    grad_descent_steps: 128
+    legality_guidance_weight: 0.0
+    hpwl_guidance_weight: 1.0
+    softmax_min: 5.0
+    softmax_max: 50.0
+graph_batch: 4
+path_batch: 4
+batch_mode: accumulate

@@ -1,0 +1,14 @@
+# @package _global_
+
+# Minimal Phase 1 iMF selection for training or raw evaluation.
+family: imf
+resume: none
+init_from: none
+
+model:
+  prior_noise_dist: uniform
+  imf_sampling_steps: 1
+  use_hard_constraint_in_sampling: false
+
+legalization:
+  mode: none
