@@ -24,6 +24,7 @@ flow_matching/            model, networks, training/eval loops, legalizers, Hydr
 common/                   checkpointing, logging, metric helpers
 scripts/phase1/remote_validation.py  config composition used by training
 scripts/phase2/imf_continue_gp.py    training entry point used for the released weights
+legalizers/               unmodified FlowPlace V0 / FlowPlace soft / ChipDiffusion legalizers
 ppa_surrogate/            PPA predictor
   models2.py              predictor model ("macro": macro-pin-net message passing + map CNN + std-cell proxy prior)
   stdcell.py              std-cell cluster proxy (spreading around the legal macros) and its features
