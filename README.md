@@ -99,12 +99,11 @@ python scripts/predictor/score_cands.py IN_DIR OUT --static-dir D/static_v2 --st
 
 ### Candidate pools (`data/candidates/`)
 
-The 16,384 generated candidates (seeds 0-16383) of the four designs used in the scale-up experiments
+The 16,384 generated candidates of the four designs used in the scale-up experiments
 (`bp_fe`, `swerv_wrapper`, `ariane133`, `bp`), after legalization, one file per design:
 
 | key | shape | meaning |
 |---|---|---|
-| `seeds` | (16384,) | sampling seed of each candidate |
 | `names` | (N,) | macro instance names |
 | `ll_dbu` | (16384, N, 2) int32 | lower-left corner of each macro in DBU (`ll_um = ll_dbu / dbu_per_um`) |
 | `dbu_per_um` | () | 2000 |
@@ -122,19 +121,18 @@ ll_um = z["ll_dbu"] / z["dbu_per_um"]     # (16384, 132, 2)
 DEF files of the placements reported for `Ours` in Table I, one folder per design, compressed with xz
 (`xz -dk <file>.xz`); `SHA256SUMS` checks the `.xz` files and `SHA256SUMS_uncompressed` the DEF files.
 
-| design | seed | file |
-|---|---|---|
-| ariane133 | 13 | `6_final.def` (routed) |
-| ariane136 | 2711 | `6_final.def` (routed) |
-| bp | 92 | `6_final.def` (routed) |
-| bp_be | 108 | `6_final.def` (routed) |
-| bp_fe | 109 | `6_final.def` (routed) |
-| swerv_wrapper | 1932 | `6_final.def` (routed) |
-| mempool_tile | 270 | `3_4_place_resized.def` (after placement; the routed DEF was not kept) |
-| nvdla | 2865 | `3_4_place_resized.def` (after placement; the routed DEF was not kept) |
+| design | file |
+|---|---|
+| ariane133 | `6_final.def` (routed) |
+| ariane136 | `6_final.def` (routed) |
+| bp | `6_final.def` (routed) |
+| bp_be | `6_final.def` (routed) |
+| bp_fe | `6_final.def` (routed) |
+| swerv_wrapper | `6_final.def` (routed) |
+| mempool_tile | `3_4_place_resized.def` (after placement; the routed DEF was not kept) |
+| nvdla | `3_4_place_resized.def` (after placement; the routed DEF was not kept) |
 
-The macro locations in these DEFs are the ones produced by the OpenROAD flow, which snaps macros to its grid (within
-0.11 um of the candidate coordinates; for the four designs above, seed `s` is row `s` of `data/candidates/<design>.npz`).
+The macro locations in these DEFs are the ones produced by the OpenROAD flow, which snaps macros to its grid.
 
 ## Acknowledgement
 
