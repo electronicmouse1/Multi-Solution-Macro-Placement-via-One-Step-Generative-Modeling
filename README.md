@@ -5,7 +5,8 @@ Anonymous code release accompanying the DAC 2027 submission.
 **Status: partial release.** This release contains the one-step generator
 (an improved MeanFlow, "iMF", variant of a graph flow-matching placer), its training
 code, and the trained weights used in the paper, and the PPA predictor used for screening
-with its training code and the six trained checkpoints of the frozen ensemble. Benchmark conversion
+with its training code and the six trained checkpoints of the frozen ensemble, the coordinates of all
+16,384 candidates of the four scale-up designs, and the DEF files of our placements in Table I. Benchmark conversion
 utilities, the predictor dataset pipeline (OpenROAD labelling), the multi-stage screening pipeline,
 and the end-to-end evaluation scripts will be added in follow-up updates.
 
@@ -93,6 +94,47 @@ Scoring a pool of legal placements (design data in the dataset format, see the d
 python scripts/predictor/score_cands.py IN_DIR OUT --static-dir D/static_v2 --stdcell-dir D/stdcell \
     --names-dir D/dataset ariane133
 ```
+
+## Data
+
+### Candidate pools (`data/candidates/`)
+
+The 16,384 generated candidates (seeds 0-16383) of the four designs used in the scale-up experiments
+(`bp_fe`, `swerv_wrapper`, `ariane133`, `bp`), after legalization, one file per design:
+
+| key | shape | meaning |
+|---|---|---|
+| `seeds` | (16384,) | sampling seed of each candidate |
+| `names` | (N,) | macro instance names |
+| `ll_dbu` | (16384, N, 2) int32 | lower-left corner of each macro in DBU (`ll_um = ll_dbu / dbu_per_um`) |
+| `dbu_per_um` | () | 2000 |
+| `size_um` | (N, 2) | macro width and height |
+| `die_um`, `core_um` | (4,) | die and core area (x0, y0, x1, y1) |
+
+```python
+import numpy as np
+z = np.load("data/candidates/ariane133.npz")
+ll_um = z["ll_dbu"] / z["dbu_per_um"]     # (16384, 132, 2)
+```
+
+### Placements of Table I (`data/table1_ours_def/`)
+
+DEF files of the placements reported for `Ours` in Table I, one folder per design, compressed with xz
+(`xz -dk <file>.xz`); `SHA256SUMS` checks the `.xz` files and `SHA256SUMS_uncompressed` the DEF files.
+
+| design | seed | file |
+|---|---|---|
+| ariane133 | 13 | `6_final.def` (routed) |
+| ariane136 | 2711 | `6_final.def` (routed) |
+| bp | 92 | `6_final.def` (routed) |
+| bp_be | 108 | `6_final.def` (routed) |
+| bp_fe | 109 | `6_final.def` (routed) |
+| swerv_wrapper | 1932 | `6_final.def` (routed) |
+| mempool_tile | 270 | `3_4_place_resized.def` (after placement; the routed DEF was not kept) |
+| nvdla | 2865 | `3_4_place_resized.def` (after placement; the routed DEF was not kept) |
+
+The macro locations in these DEFs are the ones produced by the OpenROAD flow, which snaps macros to its grid (within
+0.11 um of the candidate coordinates; for the four designs above, seed `s` is row `s` of `data/candidates/<design>.npz`).
 
 ## Acknowledgement
 
