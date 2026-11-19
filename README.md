@@ -8,6 +8,11 @@ code, and the trained weights used in the paper. Benchmark conversion
 utilities, the screening/selection pipeline, and the end-to-end evaluation scripts
 will be added in follow-up updates.
 
+## Paper with appendix
+
+[`paper/WIDEPlace_with_appendix.pdf`](paper/WIDEPlace_with_appendix.pdf) is the submitted paper followed by an appendix
+with additional results (pages 8 onward); the first seven pages are identical to the submission.
+
 ## Contents
 
 ```
