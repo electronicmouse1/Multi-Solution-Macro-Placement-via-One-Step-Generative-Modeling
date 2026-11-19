@@ -6,7 +6,7 @@ Anonymous code release accompanying the DAC 2027 submission.
 (an improved MeanFlow, "iMF", variant of a graph flow-matching placer), its training
 code, and the trained weights used in the paper, and the PPA predictor used for screening
 with its training code and the six trained checkpoints of the frozen ensemble, the coordinates of all
-16,384 candidates of the four scale-up designs, and the DEF files of our placements in Table I. Benchmark conversion
+16,384 candidates of the four scale-up designs, and the DEF files of our placements in Table I (Ours and Ours w/ multi-stage). Benchmark conversion
 utilities, the predictor dataset pipeline (OpenROAD labelling), the multi-stage screening pipeline,
 and the end-to-end evaluation scripts will be added in follow-up updates.
 
@@ -116,10 +116,11 @@ z = np.load("data/candidates/ariane133.npz")
 ll_um = z["ll_dbu"] / z["dbu_per_um"]     # (16384, 132, 2)
 ```
 
-### Placements of Table I (`data/table1_ours_def/`)
+### Placements of Table I (`data/table1_ours_def/`, `data/table1_ours_multistage_def/`)
 
-DEF files of the placements reported for `Ours` in Table I, one folder per design, compressed with xz
-(`xz -dk <file>.xz`); `SHA256SUMS` checks the `.xz` files and `SHA256SUMS_uncompressed` the DEF files.
+DEF files of the placements reported in Table I for `Ours` (`table1_ours_def/`) and for `Ours w/ multi-stage`
+(`table1_ours_multistage_def/`), one folder per design, compressed with xz (`xz -dk <file>.xz`); in each folder
+`SHA256SUMS` checks the `.xz` files and `SHA256SUMS_uncompressed` the DEF files. Both sets contain the same file types:
 
 | design | file |
 |---|---|
