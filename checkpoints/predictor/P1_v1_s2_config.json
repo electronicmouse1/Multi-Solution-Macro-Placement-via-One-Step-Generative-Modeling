@@ -1,0 +1,334 @@
+{
+ "model": "macro",
+ "real": "",
+ "pos_w": 0.1,
+ "net_w": 1.0,
+ "oracle_w": 0.5,
+ "macro_w": 0.25,
+ "rudy_w": 0.2,
+ "no_corr": false,
+ "corr_max": 1.0,
+ "data": "datasets_ppa/ds20_v1/dataset",
+ "static": "datasets_ppa/ds20_v1/static_v2",
+ "stdcell": "datasets_ppa/ds20_v1/stdcell",
+ "out": "runs/ds20_prior_20261017/P1_s2",
+ "train_designs": "ariane81,bp68,bp_be12,bp_fe38,bp_multi57,bp_multi,swerv_wrapper43,vga_lcd,dft68,or1200,mor1kx,ethernet,VeriGPU,isa_npu",
+ "val_designs": "",
+ "sample_frac": 1.0,
+ "within_frac": 0.0,
+ "input": "final",
+ "targets": [
+  "wl",
+  "wns",
+  "tns",
+  "ovf",
+  "gcell",
+  "pwr"
+ ],
+ "steps": 6000,
+ "batch": 16,
+ "lr": 0.0005,
+ "wd": 0.0001,
+ "rank_w": 1.0,
+ "huber_w": 1.0,
+ "rank_weight": "abs",
+ "rank_norm": "joint",
+ "mix_imf": 0.0,
+ "exclude_sources": "",
+ "ovf_degenerate_zero_frac": 0.0,
+ "dump_preds": false,
+ "fam_w": 0.5,
+ "fam_min_level": 1.0,
+ "aux_w": 0.5,
+ "map_w": 0.2,
+ "tau": [
+  0.10000000149011612,
+  0.10000000149011612,
+  0.10000000149011612,
+  0.10000000149011612,
+  0.10000000149011612,
+  0.10000000149011612
+ ],
+ "z_clip": 4.0,
+ "hidden": 128,
+ "layers": 3,
+ "cnn_width": 32,
+ "dropout": 0.1,
+ "no_proxy": false,
+ "no_graph": false,
+ "allow_missing_proxy": false,
+ "prior_fixed": true,
+ "proxy_cfg": {
+  "iters": 20,
+  "alpha0": 0.01,
+  "rate": 1.35,
+  "kappa": 1.0,
+  "max_bins": 4.0,
+  "td_rel": 0.0,
+  "sigma_scale": 1.0
+ },
+ "ridge_lambda": 0.1,
+ "eval_every": 250,
+ "family_frac": 0.5,
+ "resid_w": 1.0,
+ "seed": 2,
+ "train_names": [
+  "ariane81",
+  "bp68",
+  "bp_be12",
+  "bp_fe38",
+  "bp_multi57",
+  "bp_multi",
+  "swerv_wrapper43",
+  "vga_lcd",
+  "dft68",
+  "or1200",
+  "mor1kx",
+  "ethernet",
+  "VeriGPU",
+  "isa_npu"
+ ],
+ "val_names": [],
+ "kind": "macro",
+ "model_cfg": {
+  "n_targets": 6,
+  "n_place": 24,
+  "hidden": 128,
+  "layers": 3,
+  "cnn_width": 32,
+  "ctx_dim": 8,
+  "node_dim": 12,
+  "use_proxy": true,
+  "use_graph": true,
+  "dropout": 0.1,
+  "prior_fixed": true
+ },
+ "proxy_files": {
+  "ariane81": {
+   "path": "datasets_ppa/ds20_v1/stdcell/ariane81.stdcell.pt",
+   "bytes": 5698856,
+   "K": 4065
+  },
+  "bp68": {
+   "path": "datasets_ppa/ds20_v1/stdcell/bp68.stdcell.pt",
+   "bytes": 7182288,
+   "K": 3876
+  },
+  "bp_be12": {
+   "path": "datasets_ppa/ds20_v1/stdcell/bp_be12.stdcell.pt",
+   "bytes": 4534802,
+   "K": 3577
+  },
+  "bp_fe38": {
+   "path": "datasets_ppa/ds20_v1/stdcell/bp_fe38.stdcell.pt",
+   "bytes": 5147666,
+   "K": 3708
+  },
+  "bp_multi57": {
+   "path": "datasets_ppa/ds20_v1/stdcell/bp_multi57.stdcell.pt",
+   "bytes": 6974164,
+   "K": 4045
+  },
+  "bp_multi": {
+   "path": "datasets_ppa/ds20_v1/stdcell/bp_multi.stdcell.pt",
+   "bytes": 5427432,
+   "K": 3728
+  },
+  "swerv_wrapper43": {
+   "path": "datasets_ppa/ds20_v1/stdcell/swerv_wrapper43.stdcell.pt",
+   "bytes": 5847810,
+   "K": 3869
+  },
+  "vga_lcd": {
+   "path": "datasets_ppa/ds20_v1/stdcell/vga_lcd.stdcell.pt",
+   "bytes": 4620242,
+   "K": 3914
+  },
+  "dft68": {
+   "path": "datasets_ppa/ds20_v1/stdcell/dft68.stdcell.pt",
+   "bytes": 4749414,
+   "K": 3685
+  },
+  "or1200": {
+   "path": "datasets_ppa/ds20_v1/stdcell/or1200.stdcell.pt",
+   "bytes": 4606844,
+   "K": 3914
+  },
+  "mor1kx": {
+   "path": "datasets_ppa/ds20_v1/stdcell/mor1kx.stdcell.pt",
+   "bytes": 8532092,
+   "K": 3715
+  },
+  "ethernet": {
+   "path": "datasets_ppa/ds20_v1/stdcell/ethernet.stdcell.pt",
+   "bytes": 5404392,
+   "K": 3529
+  },
+  "VeriGPU": {
+   "path": "datasets_ppa/ds20_v1/stdcell/VeriGPU.stdcell.pt",
+   "bytes": 5023570,
+   "K": 3926
+  },
+  "isa_npu": {
+   "path": "datasets_ppa/ds20_v1/stdcell/isa_npu.stdcell.pt",
+   "bytes": 4399186,
+   "K": 4013
+  }
+ },
+ "use_proxy": true,
+ "missing_proxy": [],
+ "noise_sigma_z": [
+  NaN,
+  NaN,
+  NaN,
+  NaN,
+  NaN,
+  NaN
+ ],
+ "noise_sigma_per_design": {},
+ "place_features": [
+  "gp1_init_hpwl",
+  "gp_init_hpwl",
+  "gp_final_hpwl",
+  "gp_iters",
+  "io_hpwl",
+  "dp_hpwl",
+  "dp_hpwl_legal",
+  "dp_disp",
+  "dp_disp_max",
+  "pl_wns_pre",
+  "pl_tns_pre",
+  "pl_wns",
+  "pl_tns",
+  "pl_buffers",
+  "pl_buffered_nets",
+  "pl_resized",
+  "pl_slew_viol",
+  "pl_cap_viol",
+  "pl_long_wires",
+  "pl_inst_after",
+  "pl_power",
+  "pl_power_comb",
+  "pl_worst_end_macro",
+  "pl_worst_start_macro"
+ ],
+ "device": "cuda",
+ "real_samples": {},
+ "ovf_head_masked": {},
+ "head_mask": {
+  "ariane81": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "bp68": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "bp_be12": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "bp_fe38": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "bp_multi57": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "bp_multi": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "swerv_wrapper43": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "vga_lcd": [
+   true,
+   true,
+   true,
+   false,
+   false,
+   true
+  ],
+  "dft68": [
+   true,
+   true,
+   true,
+   false,
+   false,
+   true
+  ],
+  "or1200": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "mor1kx": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "ethernet": [
+   true,
+   true,
+   true,
+   false,
+   false,
+   true
+  ],
+  "VeriGPU": [
+   true,
+   true,
+   true,
+   false,
+   false,
+   true
+  ],
+  "isa_npu": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ]
+ },
+ "n_params": 1399489,
+ "load_seconds": 1739.7
+}

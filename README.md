@@ -2,11 +2,12 @@
 
 Anonymous code release accompanying the DAC 2027 submission.
 
-**Status: partial release.** This first batch contains the one-step generator
+**Status: partial release.** This release contains the one-step generator
 (an improved MeanFlow, "iMF", variant of a graph flow-matching placer), its training
-code, and the trained weights used in the paper. Benchmark conversion
-utilities, the screening/selection pipeline, and the end-to-end evaluation scripts
-will be added in follow-up updates.
+code, and the trained weights used in the paper, and the PPA predictor used for screening
+with its training code and the six trained checkpoints of the frozen ensemble. Benchmark conversion
+utilities, the predictor dataset pipeline (OpenROAD labelling), the multi-stage screening pipeline,
+and the end-to-end evaluation scripts will be added in follow-up updates.
 
 ## Paper with appendix
 
@@ -22,9 +23,16 @@ flow_matching/            model, networks, training/eval loops, legalizers, Hydr
 common/                   checkpointing, logging, metric helpers
 scripts/phase1/remote_validation.py  config composition used by training
 scripts/phase2/imf_continue_gp.py    training entry point used for the released weights
+ppa_surrogate/            PPA predictor
+  models2.py              predictor model ("macro": macro-pin-net message passing + map CNN + std-cell proxy prior)
+  stdcell.py              std-cell cluster proxy (spreading around the legal macros) and its features
+  train2.py               training entry point (Huber + within-design ranking loss) and prediction
+  data.py, features.py, model.py, losses.py, metrics.py, evaluate2.py   data loading, layers, losses, checkpoint loading
+scripts/predictor/score_cands.py     scores a pool of legal placements with the frozen ensemble
 checkpoints/
   imf_g4p4_step15000.pt              trained weights (model state_dict only, 6.29M params)
   imf_g4p4_step15000_config.yaml     resolved config of the training run
+  predictor/P1_v{1,2}_s{0,1,2}.pt    frozen predictor ensemble (6 x 1.4M params), with *_config.json and SHA256SUMS
 environment.yaml          conda environment
 ```
 
@@ -62,6 +70,29 @@ The released weights were obtained with `scripts/phase2/imf_continue_gp.py`
 5k-step checkpoint and stopping at step 15000. The full resolved configuration is in
 `checkpoints/imf_g4p4_step15000_config.yaml`. Synthetic training data generation
 follows the original FlowPlace data generator and is not included in this batch.
+
+## PPA predictor
+
+The screening predictor is a frozen ensemble of six models with the same architecture and hyper-parameters
+(`model = macro`, `--prior-fixed`, 6,000 steps, seeds 0-2): `P1_v1_s*` are trained on the first labelled set and
+`P1_v2_s*` on the extended set of 6,229 GRT-labelled placements of 14 ChiPBench circuits; none of the six test
+designs is used for training. Each model predicts per-design z-scored costs (lower is better) for
+`wl, wns, tns, ovf, gcell, pwr` from a legal macro placement; screening averages the six predictions and uses the
+WL, WNS and TNS heads. The predictor additionally needs `scipy` (tested with 1.15.3).
+
+Training (one member; the full resolved arguments are in `checkpoints/predictor/*_config.json`):
+
+```bash
+python -m ppa_surrogate.train2 --model macro --prior-fixed --data D/dataset --static D/static_v2 \
+    --stdcell D/stdcell --out runs/P1_s0 --seed 0
+```
+
+Scoring a pool of legal placements (design data in the dataset format, see the docstring):
+
+```bash
+python scripts/predictor/score_cands.py IN_DIR OUT --static-dir D/static_v2 --stdcell-dir D/stdcell \
+    --names-dir D/dataset ariane133
+```
 
 ## Acknowledgement
 
